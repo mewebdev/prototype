@@ -1,12 +1,21 @@
+import { MemoryRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import Space from '../components/Space';
 import '../styles/App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        ME Prototype
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/">
+          <Redirect to="/space" />
+        </Route>
+      </Switch>
+      <Switch>
+        <Route path="/space">
+          <Space />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
