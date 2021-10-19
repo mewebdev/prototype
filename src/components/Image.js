@@ -11,9 +11,25 @@ import img5 from '../images/egger_land.jpg';
 import img6 from '../images/kimasendorfnft.png';
 import img7 from '../images/mebit-zombie.jpg';
 import img8 from '../images/pixelsortnft.jpg';
+import img9 from '../images/Liquid-type.jpg';
+import img10 from '../images/macinotosh manual.png';
+import img11 from '../images/ME-design.png';
+import img12 from '../images/O-logo.png';
+import img13 from '../images/Reflection.jpg';
+import img14 from '../images/kamuy.jpg';
+import img15 from '../images/youtube.jpg';
+import img16 from '../images/sankei.png';
+import img17 from '../images/cookpad.png';
+import img18 from '../images/amazon.png';
+import img19 from '../images/map.png';
+import img20 from '../images/Russian Dining.jpg';
+import img21 from '../images/rogovski.png';
 
 export default function Image({ position, width, height, scale, id }) {
-    const images = [img, img2, img3, img4, img5, img6, img7, img8]
+    const images = [img, img2, img3, img4, img5, img6, img7, 
+                    img8, img9, img10, img11, img12, img13,
+                    img14, img15, img16, img17, img18, img19,
+                    img20, img21]
     const texture = useLoader(THREE.TextureLoader, images[id]);
     const ref = useRef()
     const { size, viewport } = useThree()
