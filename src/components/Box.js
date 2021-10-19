@@ -12,11 +12,13 @@ export default function Box(props) {
       ref.current.rotation.y += 0.01; 
       ref.current.rotation.z -= 0.01;
       ref.current.rotation.x += 0.01;
+        
       }
     )
   // Return the view, these are regular Threejs elements expressed in JSX
   return (
     <mesh
+    castShadow
       {...props}
       ref={ref}
       scale={active ? 1.5 : 1}
@@ -24,7 +26,7 @@ export default function Box(props) {
       onPointerOver={(event) => setHover(true)}
       onPointerOut={(event) => setHover(false)}>
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? 'gray' : 'white'} />
+      <meshStandardMaterial color={hovered ? 'orange' : 'hotpink'} />
     </mesh>
   )
 }
