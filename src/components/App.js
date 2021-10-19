@@ -12,7 +12,7 @@ function App() {
       </Switch>
       <Switch>
         <Route path="/space">
-          <Space />
+          <Space space="2"/>
         </Route>
       </Switch>
     </Router>
