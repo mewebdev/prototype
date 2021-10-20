@@ -1,5 +1,5 @@
-import React, { Suspense, useState } from 'react'
-import { Canvas,} from '@react-three/fiber';
+import React, { Suspense, useEffect, useState } from 'react'
+import { Canvas, } from '@react-three/fiber';
 import { Environment, OrbitControls } from '@react-three/drei';
 import Menu from './Menu'
 import styles from '../styles/space.module.scss'
@@ -20,35 +20,40 @@ const images = [
         width: 400,
         height: 215,
         scale: 5,
-        id: 13
+        id: 13,
+        tags: ['anime', 'ainu']
     },
     {
         position: [6, 4, -2.1],
         width: 1280,
         height: 720,
         scale: 5,
-        id: 14
+        id: 14,
+        tags: ['ainu', 'cooking', 'youtube']
     },
     {
         position: [0, 3, -3.2],
         width: 1520,
         height: 1626,
         scale: 5,
-        id: 15
+        id: 15,
+        tags: ['ainu', 'culture']
     },
     {
         position: [-8, 5, -5.5],
         width: 1424,
         height: 1236,
         scale: 5,
-        id: 16
+        id: 16,
+        tags: ['ainu', 'food', 'russia']
     },
     {
         position: [-2, -5, -2.3],
         width: 2246,
         height: 830,
         scale: 5,
-        id: 17
+        id: 17,
+        tags: ['ainu', 'restaurant']
     },
 
     {
@@ -56,7 +61,8 @@ const images = [
         width: 770,
         height: 544,
         scale: 5,
-        id: 18
+        id: 18,
+        tags: ['russia', 'dining']
     },
 
     {
@@ -64,7 +70,8 @@ const images = [
         width: 277,
         height: 182,
         scale: 5,
-        id: 19
+        id: 19,
+        tags: ['russia', 'restaurant']
     },
 
     {
@@ -72,7 +79,8 @@ const images = [
         width: 776,
         height: 474,
         scale: 5,
-        id: 20
+        id: 20,
+        tags: ['russia', 'restaurant']
     },
 ]
 
@@ -81,6 +89,20 @@ const Notes = ({ space }) => {
     const [search, setSearch] = useState(false);
     const [text, setValue] = useState('');
     const [menu, setMenu] = useState(false);
+    const [data, setData] = useState(images);
+
+    useEffect(() => {
+        if(text!==''){
+            let filteredData = images.filter(image => image.tags.some(tag => tag.includes(text)));
+            if(filteredData.length>0){
+                console.log(filteredData)
+                setData(filteredData)
+            }
+        }else{
+            setData(images)
+        }
+    }, [data, text])
+
     return (
         <div className={styles.container}>
             {
@@ -97,7 +119,7 @@ const Notes = ({ space }) => {
                     </div>
             }
             <div className={styles.nav}>
-                <div className={styles.button} id={styles.search} onClick={() => { setSearch(!search); setValue('') }}>
+                <div className={styles.button} id={styles.search} onClick={() => setSearch(!search)}>
 
                 </div>
                 <div className={styles.button} id={styles.text}>
@@ -110,16 +132,12 @@ const Notes = ({ space }) => {
 
                 </div>
             </div>
-            {
-                search ?
-                    <input type="text" className={styles.search} defaultValue={text} onChangeText={text => setValue(text)} />
-                    : null
-            }
+            <input type="text" className={search ? styles.search : styles.noSearch} defaultValue={text} onChange={e => setValue(e.target.value)} />
             <Canvas colorManagement>
                 <OrbitControls enablePan={false} enableZoom={true} enableRotate={false} />
                 <Suspense fallback={null}>
                     {
-                        images.map((image) => (
+                        data.map((image) => (
                             <Image
                                 position={image.position}
                                 width={image.width}
